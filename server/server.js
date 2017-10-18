@@ -16,7 +16,7 @@ var Todo = mongoose.model('Todo', {
         type: Boolean
     },
     completedApp: {
-        type: Number
+        type: String
     }
 });
 
@@ -31,3 +31,17 @@ newTodo.save().then((doc)=>{
 }, (err)=>{
    console.log('Unable to Save ', err);
 });
+
+var newTodo2 = new Todo({
+    text: 'Space the final frontier',
+    completed: true,
+    completedApp: JSON.stringify(new Date())
+   
+ });
+
+
+ newTodo2.save().then((doc)=>{
+   console.log(JSON.stringify(doc, undefined,2 ));
+ }, (err)=>{
+    console.log('Unable to Save ', err);
+ });
