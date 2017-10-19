@@ -14,42 +14,69 @@ var express = require('express');
 var bodyparser = require('body-parser');
 
 //1.1 require the mongoose connection and string from db-directive
-var{mongoose} = require('./db/mongoose');
-
+var { mongoose } = require('./db/mongoose');
+const { ObjectID } = require('mongodb');
 //1.2. we using the require to export our models from the modules directive
-var {Todo} = require('./models/todo');
-var {User} = require('./models/user');
+var { Todo } = require('./models/todo');
+var { User } = require('./models/user');
 
 
 var app = express();
 
 app.use(bodyparser.json());
 
-app.post('/todos', (req, res)=>{
-  var todo1 = new Todo ({
-      text: req.body.text
-  });
+app.post('/todos', (req, res) => {
+    var todo1 = new Todo({
+        text: req.body.text
+    });
 
-  todo1.save().then((docs)=>{
-    res.send(docs);
-  }, (e)=>{
-    res.status(400).send(e);
-  });
+    todo1.save().then((docs) => {
+        res.send(docs);
+    }, (e) => {
+        res.status(400).send(e);
+    });
 
 });
 
-app.get('/todos', (req, res)=>{
-    Todo.find().then((todos) =>{
-        res.send({todos});
-    }, (err)=>{
+app.get('/todos', (req, res) => {
+    Todo.find().then((todos) => {
+        res.send({ todos });
+    }, (err) => {
         res.status(400).send(err);
     });
 });
 
+app.get('/todos/:id', (req, res) => {
+    var id = req.params.id;
+
+    // A simple proprty in ObjectId-lib that check if the passed ObjectId is valide.
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+    Todo.findById(id).then((docs)=>{
+       if(!docs){
+           res.status(404).send();
+       }
+       res.status(200).send({docs});
+
+    }).catch((e)=>{
+        res.status(400).send(e);
+    })
+    
+    //succe-case - 200
+    // if todo -send it back
+    // if no todo - send back 404 empty body
+    //failed-case -400 send empty body back
 
 
-app.listen(3000, ()=>{
+
+});
+
+
+
+
+app.listen(3000, () => {
     console.log('Server Up on Port: 3000');
 })
 
-module.exports = {app};
+module.exports = { app };

@@ -2,13 +2,14 @@ const {ObjectID} = require('mongodb');
 const {mongoose} = require('./../server/db/mongoose');
 const {Todo} = require('./../server/models/todo');
 
-/*/
-var id = '59e7ef452987c6a4236cd0b011';
 
+var id = '59e7ef452987c6a4236cd0b0';
+
+// A simple proprty in ObjectId-lib that check if the passed ObjectId is valide.
 if(!ObjectID.isValid(id)){
     console.log('Validator: ID is not valid');
 }
-/*/
+
 
 /*/
 Todo.find({
