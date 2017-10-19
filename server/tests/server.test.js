@@ -6,7 +6,7 @@ const { app } = require('./../server');
 const { Todo } = require('./../models/todo');
 
 const todos = [{
-    _id: new ObjectID(),
+    _id: new ObjectID,
     text: 'Test: First something..'
 }, {
     _id: new ObjectID(),
@@ -88,14 +88,35 @@ describe('Get : /todos/:id', ()=>{
    
     it('Should return todo/id: doc', (done)=>{
 
-        var ids = todos[0]._id.toHexString();
         request(app)
-        .get('/todos/'+ids)    // May need to change the todo.id parameter to ('todos/${todo[0].toHexString}')
+        .get('/todos/'+todos[0]._id.toHexString())    // May need to change the todo.id parameter to ('todos/${todo[0].toHexString}')
         .expect(200)
-        //.expect((res) => {
-          //   expect(res.body.todos.text).toBe(todos[0].text);
-       // })
+        .expect((res) => {
+            expect(res.body.todo.text).toBe(todos[0].text);
+       })
         .end(done);               
+    });
+
+
+    it(' It should return 404 if todo is not found', (done)=> {
+
+        var hexId = new ObjectID().toHexString();
+         
+        //console.log(JSON.stringify(hexId,undefined,2))
+
+        request(app)
+        .get('/todos/'+hexId)
+        .expect(404)
+        .end(done)
+    });
+
+    it(' It should return 404 for non-object ids', (done)=> {
+       
+        request(app)
+        .get('/todos/abc')
+        .expect(404)
+        .end(done)
+
     });
     
 });
