@@ -1,16 +1,17 @@
 const expect = require('expect');
 const request = require('supertest');
+const {ObjectID} = require('mongodb');
 
 const { app } = require('./../server');
 const { Todo } = require('./../models/todo');
 
 const todos = [{
-    text: 'Test: First something..',
+    _id: new ObjectID(),
+    text: 'Test: First something..'
 }, {
+    _id: new ObjectID(),
     text: ' Test: Second something todo'
 }]
-
-
 
 
 //with beforeach statament, we remove all data from the database after each request.
@@ -81,4 +82,20 @@ describe('GET /todos', () => {
         .end(done);
     
     });
+});
+
+describe('Get : /todos/:id', ()=>{
+   
+    it('Should return todo/id: doc', (done)=>{
+
+        var ids = todos[0]._id.toHexString();
+        request(app)
+        .get('/todos/'+ids)    // May need to change the todo.id parameter to ('todos/${todo[0].toHexString}')
+        .expect(200)
+        //.expect((res) => {
+          //   expect(res.body.todos.text).toBe(todos[0].text);
+       // })
+        .end(done);               
+    });
+    
 });

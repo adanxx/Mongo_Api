@@ -61,19 +61,10 @@ app.get('/todos/:id', (req, res) => {
 
     }).catch((e)=>{
         res.status(400).send(e);
-    })
-    
-    //succe-case - 200
-    // if todo -send it back
-    // if no todo - send back 404 empty body
-    //failed-case -400 send empty body back
-
+    });
 
 
 });
-
-
-
 
 app.listen(3000, () => {
     console.log('Server Up on Port: 3000');
