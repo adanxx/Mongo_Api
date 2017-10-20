@@ -53,18 +53,37 @@ app.get('/todos/:id', (req, res) => {
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
-    Todo.findById(id).then((todo)=>{
-       if(!todo){
-           res.status(404).send();
-       }
-       res.status(200).send({todo});
+    Todo.findById(id).then((todo) => {
+        if (!todo) {
+            res.status(404).send();
+        }
+        res.status(200).send({ todo });
 
-    }).catch((e)=>{
+    }).catch((e) => {
         res.status(400).send(e);
     });
 
-
 });
+// Get Delete api function - more reference/idees look up -> mongoose-remove-js
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+
+    // A simple proprty in ObjectId-lib that check if the passed ObjectId is valide.
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+    Todo.findByIdAndRemove(id).then((todo) => {
+        if (!todo) {
+            res.status(404).send();
+        }
+        res.status(200).send({ todo });
+
+    }).catch((e) => {
+        res.status(400).send(e);
+    });
+})
+
+
 
 app.listen(3000, () => {
     console.log('Server Up on Port: 3000');
