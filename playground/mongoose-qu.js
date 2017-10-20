@@ -10,7 +10,6 @@ if(!ObjectID.isValid(id)){
     console.log('Validator: ID is not valid');
 }
 
-
 /*/
 Todo.find({
     _id: id
