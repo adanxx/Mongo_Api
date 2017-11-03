@@ -25,13 +25,11 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     console.log('Connect to MongoDB Server')
     console.log();
 
-    //In this Section we trying to retrive or collection-data from the TodoApps-database   
-    //1.With the find-command is cusor/methods that point at the TodoApp 'Todos' Collection docs
-    // and let us different commands to manipulet data in specif directiv/Collection
-    //2. with toArray, we retrive the data as implied as Array of obejct with the set
-    // attributes and propeties.
-    //3.When the use a then-call to write the data to screen and callback-function in 
-    // case of error.
+    //In this Section we are trying to retrive our collection-data from the TodoApps-database   
+    //1.With the find-command and cusor/methods that points at the TodoApp 'Todos' Collection docs
+    // by using different commands to manipulet data in specific directiv/Collection
+    //2. with the toArray, we retrive the data as an Array of obejct with the set attributes and propeties.
+    //3.We then use a then-call to write the data to screen and a callback-function in case of error.
 
     db.collection('Todos').find({ completed: false }).toArray().then((docs) => {
 
@@ -48,7 +46,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     });
 
     //In the eksemple below we are retriving the wanted object/data by using the id with ObjectDB with required attribute
-    // MongoDB-lib 
+    // in the MongoDB-lib 
     db.collection('Todos').find({
         _id: new ObjectID('59e648b3b9ffb0410e032f0d')    
     }).toArray().then((docs) => {
@@ -60,15 +58,12 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         console.log('unable fetch the data', err);
     });
 
- //In the eksemple below we are the count-function return the number of Collection retrived from todoApps-database. 
+ //In the eksemple below we are using the count-function to return the number of Collection retrived from todoApps-database. 
     db.collection('Todos').find().count().then((count) => {
         console.log('Todos Counts: '+count);
     }, (err) => {
         console.log('unable fetch the count', err);
     });
-
-
-
 
 
     // db.close();
