@@ -1,0 +1,9 @@
+body{
+    padding: 50px;
+    background: blue;
+}
+
+body.loader{
+    color: blue !important;
+    margin-top: 20px;
+}
