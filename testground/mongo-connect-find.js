@@ -25,6 +25,19 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     console.log('Connect to MongoDB Server')
     console.log();
 
+    
+    //In the eksemple below we are retriving all object/data using find param with adding any properties
+    // The toArrays as promise-call 'then' and we retrive the collection else return error 
+    db.collection('Todos').find().toArray().then((docs) => {
+
+        console.log('Return all the doc in Todo');
+        //undefine is the filter and 2 stands for word-spacing
+        console.log(JSON.stringify(docs, undefined, 2));
+
+    }, (err) => {
+        console.log('unable fetch the data', err);
+    });
+
     //In this Section we are trying to retrive our collection-data from the TodoApps-database   
     //1.With the find-command and cusor/methods that points at the TodoApp 'Todos' Collection docs
     // by using different commands to manipulet data in specific directiv/Collection
@@ -38,7 +51,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         //below we testing by retriving object/collection with property:'completed set to false.
 
 
-        console.log('Todos: with false-statement');
+        console.log('Return Todos: with false-statement');
         console.log(JSON.stringify(docs, undefined, 2));
 
     }, (err) => {
@@ -65,7 +78,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         console.log('unable fetch the count', err);
     });
 
-
-    // db.close();
+    //The close. methods is unrequired and is comment out.
+    // db.close();  
 
 });

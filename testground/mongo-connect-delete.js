@@ -37,25 +37,26 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         console.log('Unable to DeleteMany doc with:'+text);
     });
     /*/
-    
-    //deleteOne - as suggested finds and deletes the passed identifyr of the doc
-    // being deleted- !Notice the then-function is not necessary..use RoboMon if 
-    // if you need to further verfiy of data-deleted.
-    /*/
-    db.collection('Todos').deleteOne({text: 'the matrix'})
+
+    /*/deleteOne- as suggested finds and deletes the passed identifer of the first 
+       duplicates the doc being deleted... 
+       !Notice the then-function is not necessary..use RoboMon for further prove..
+        //
+        db.collection('Todos').deleteOne({text: 'the matrix'})
     /*/
 
-
-    //findOneAndDelete - The Most secures- The FindOne-Command return the value
-    // and content of deleted doc back, dobblecheck the correct data was removed.
-    db.collection('Todos').findOneAndDelete({completed: false}).then((result) => {
+    /*/
+      findOneAndDelete - The Most secures - The FindOne-Command return the data
+       and content of deleted value-data back, dobblecheck the correct data was 
+       removed.
+    /*/
+       db.collection('Todos').findOneAndDelete({completed: false}).then((result) => {
         console.log(result);
     }, (err) => {
         console.log('Unable to DeleteOne doc with:' + text);
     });
 
-
-
-    // db.close();
-
+    /*/ (^^)
+    db.close();
+    /*/
 });

@@ -1,12 +1,11 @@
 //const MongoClient = require('mongodb').MongoClient;
 
-//The statement is the same as previous, except this allow more flexbility as your are using 
+//The variable is the same as previous, except this uses ES6 and allow more flexbility as we are using 
 // a de-structuring instead of require-statment. with restructering it easier to use different
-// require-attribute without having to rewrite the same command-line as line-1. The fallowing in
-
+// require-attribute without having to rewrite the same command-line as line-1. As in fallowing
 const {MongoClient, ObjectID} = require('mongodb');
 
-/*/
+/*/ 
 // line-7 gives you the access to 2 Mongo-library attribute. In f.eks. below: we can test ObejctID FROM the 
 // MongoDb library to print object-id like MongoDB-database for testing-consol.log or application-use.
 
@@ -37,7 +36,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         if (err) {
             return console.log('Unable to insert TodoApp-database: Todos Collection', err)
         }
-        //ops attribute store docs that where insert ->insertOne, insert one object/document
+        //ops attribute retrives the data in the insert ->insertOne, insert one object/document
         console.log(JSON.stringify(result.ops, undefined, 2))
     });
    /*/
@@ -51,11 +50,12 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         if (err) {
             return console.log('Unable to insert TodoApp-database: User-Collectio', err)
         }
-        //ops attribute allow you to pull docs that where insert ->insertOne, insert one object/document
-        // Think Arrays: under the console we retriving data from Users-Collection - property: fx - Id and Name
+        //The 'ops' attribute allow you to pull docs that where insert ->insertOne, insert one object/document
+        // Think Arrays: under the console we retriving data from Users-Collection - property: fx -Id and Name
         console.log( result2.ops[0]._id);
         console.log( result2.ops[0].Name);
-        // Time-stamp function show time of doc/Collection was created
+
+        // Time-stamp function show time of creation of specified _id of the object was created
         console.log( result2.ops[0]._id.getTimestamp());
     });
    /*/
