@@ -2,7 +2,7 @@
 
 //The statement is the same as previous, except this allow more flexbility as your are using 
 // a de-structuring instead of require-statment. with restructering it easier to use different
-// require-attribute without having to rewrite the samme command-line as line-1. The fallowing in
+// require-attribute without having to rewrite the same command-line as line-1. The fallowing in
 
 const {MongoClient, ObjectID} = require('mongodb');
 
