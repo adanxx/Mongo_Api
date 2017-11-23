@@ -13,11 +13,11 @@ mongoose.connect('mongodb://localhost:27017/TodoApp');
 const express = require('express');
 const bodyparser = require('body-parser');
 const lodash = require('lodash');
-const underscore = require('underscore'); //Not used- provides similiar depencey as lodash
-//1.1 require the mongoose connection and string from db-directive
+const underscore = require('underscore'); //Not used- provides similiar depencies as lodash
+//1.1 require from the mongoose connection and string from db-directive
 var { mongoose } = require('./db/mongoose');
 const { ObjectID } = require('mongodb');
-//1.2. we using the require to export our models from the modules directive
+//1.2. we are using the require to export our models from the modules directive
 var { Todo } = require('./models/todo');
 var { User } = require('./models/user');
 
@@ -86,9 +86,9 @@ app.delete('/todos/:id', (req, res) => {
 // update api collection data in Todo-database 
 app.patch('/todos/:id', (req, res) => {
     var id = req.params.id;
-    // With 'lodash-lib' allows to update request data-stored in the body
+    // The 'lodash-lib' allows us to update request data-stored in the body
     // we then use the 'pick-metod' and pass on the body of request-data.. 
-    //fallowing we pullout the wanted data to update "if the exsist!!"
+    //finally we pullout the wanted data to update "if the data exsist!!"
     //With 'pick' we also restrict the type of data we want the user to update:
     var body = lodash.pick(req.body, ['text', 'completed']);
 
@@ -96,14 +96,15 @@ app.patch('/todos/:id', (req, res) => {
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
-    // We udated body.property depanding on the boolean-state and then updated.
+    // We updated body.property depanding on the boolean-state and then updated.
     if (lodash.isBoolean(body.completed) && body.completed) {
-        body.completedApp = new Date().getTime();  // Different from the lecture !!!! remove toString()
+        body.completedApp = new Date().getTime();  // !! remove toString() if cause for errors
     } else {
         body.completed = false
         body.completedApp = null;
     }
-    //Lastly we update our Todo-database - which selfexplaintory - review mongoose-update.js for further info
+    //Lastly we update our Todo-database - which is selfexplaintory - review mongoose-update.js for 
+    //further information - Link : mongoosejs.com
     Todo.findByIdAndUpdate(id, { $set: body }, { new: true }).then((todo) => {
         if (!todo) {
             return res.status(404).send();
