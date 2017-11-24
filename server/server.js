@@ -27,12 +27,31 @@ var app = express();
 
 app.use(bodyparser.json());
 
+
+// A simpe post.request that recives collection-doc from postman
+app.post('/users', (req, res) => {
+
+    var username = req.body.name;
+    var userEmail = req.body.email;
+
+    var user1 = new User({
+        name: username,
+        email: userEmail
+    });
+    user1.save().then((docs) => {
+        res.send(docs);
+        console.log("collection: "+docs);
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
+
+
 // A simpe post.request that recives collection-doc from postman
 app.post('/todos', (req, res) => {
     var todo1 = new Todo({
         text: req.body.text
     });
-
     todo1.save().then((docs) => {
         res.send(docs);
     }, (e) => {
@@ -41,8 +60,19 @@ app.post('/todos', (req, res) => {
 
 });
 
+app.get("/users",( req, res)=>{
+   User.find().then((users)=>{
+     res.status(200).send({ users });
+     console.log(JSON.stringify(users,undefined,2));
+   },(e)=>{
+       res.status(400).send(e);
+   });
+});
+
+
 //A get-request that send the collection of Todo.database collaction back to postman request.
 app.get('/todos', (req, res) => {
+    
     Todo.find().then((todos) => {
         res.send({ todos });
     }, (err) => {

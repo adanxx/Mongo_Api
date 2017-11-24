@@ -5,14 +5,14 @@ var mongoose = require('mongoose');
 
 //2. New model called User with email property and validors. this creates a new table called Users in TodoApp-database
 var User= mongoose.model('User', {
-    /*/
+    
     name: {
         type: String,
         required: true,  // with required: a string is not allowed to be empty
         minlength: 1,
         trim: true 
     },
-    /*/
+    
     email: {
         type: String,
         required: true,  // with required: a string is not allowed to be empty
