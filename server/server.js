@@ -14,9 +14,10 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const lodash = require('lodash');
 const underscore = require('underscore'); //Not used- provides similiar depencies as lodash
+
 //1.1 require from the mongoose connection and string from db-directive
-var { mongoose } = require('./db/mongoose');
-const { ObjectID } = require('mongodb');
+var {mongoose} = require('./db/mongoose');
+const {ObjectID} = require('mongodb');
 //1.2. we are using the require to export our models from the modules directive
 var { Todo } = require('./models/todo');
 var { User } = require('./models/user');
@@ -26,6 +27,7 @@ var app = express();
 
 app.use(bodyparser.json());
 
+// A simpe post.request that recives collection-doc from postman
 app.post('/todos', (req, res) => {
     var todo1 = new Todo({
         text: req.body.text
@@ -39,6 +41,7 @@ app.post('/todos', (req, res) => {
 
 });
 
+//A get-request that send the collection of Todo.database collaction back to postman request.
 app.get('/todos', (req, res) => {
     Todo.find().then((todos) => {
         res.send({ todos });
@@ -50,7 +53,7 @@ app.get('/todos', (req, res) => {
 app.get('/todos/:id', (req, res) => {
     var id = req.params.id;
 
-    // A simple proprty in ObjectId-lib that check if the passed ObjectId is valide.
+    // A simple proprtiy in ObjectId-lib that check if the passed ObjectId is valide.
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }

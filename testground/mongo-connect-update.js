@@ -28,6 +28,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     // By using the findOneAndUpdate we update the Todos doc with the specified _id and change 
     //the completed-true statement with the "$set" operator with "false". for futher information
     // Google: mongodb updated operator - Click on the link with url: the docs.mongodb.com/..
+    // "The returnoriginal" false if we want the changes to be implemented and updated.. 
     /*/
     db.collection('Todos').findOneAndUpdate({
         _id: new ObjectID('59e687ea9bfc8fd1c9cf0d1e')
@@ -43,22 +44,24 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
             console.log('Unable to Update data');
         })
      /*/
-
-        db.collection('Users').findOneAndUpdate({
-            _id: 123
+    db.collection('Users').findOneAndUpdate({
+        _id: 123
+    }, {
+            $inc: {
+                age: 100
+            }
         }, {
-                $inc: {
-                    age: 100
-                }
-            }, {
-                returnOriginal: false
-            }).then((result)=>{
-                console.log(result);
-            }, (err)=>{
-                console.log('Unable to Update data');
-            })
-    
+            returnOriginal: false
+        }).then((result) => {
+            console.log(result);
+        }, (err) => {
+            console.log('Unable to Update data');
+        });
 
-    // db.close();
+    
+    /*/ 
+    db.close();
+    /*/
+
 
 });

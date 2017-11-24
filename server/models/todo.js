@@ -8,7 +8,7 @@ var Todo = mongoose.model('Todo', {
         type: String,
         required: true,  // with required: a string is not allowed to be empty
         minlength: 1,    // String length > 1
-        trim: true       // trim removes withspace in the begin or end in string value
+        trim: true       // 'trim' removes withspace in the begin or end in string value
     },
     completed: {
         type: Boolean,
